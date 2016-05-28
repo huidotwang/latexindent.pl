@@ -674,7 +674,7 @@ while(<MAINFILE>)
     {
         # otherwise check to see if we've reached the main
         # part of the document
-        if(m/^\s*\\begin\{document}/)
+        if(m/^\s*\\begin\{document\}/)
         {
             $inpreamble = 0;
 
@@ -1044,7 +1044,7 @@ sub begin_command_with_alignment{
     #                 %* \end{tabular}
     #                     }
 
-    if( $_ =~ m/^\s*%\*\s*\\begin\{(.*?)}/ and $lookForAlignDelims{$1})
+    if( $_ =~ m/^\s*%\*\s*\\begin\{(.*?)\}/ and $lookForAlignDelims{$1})
     {
            $delimiters=1;
            # tracing mode
@@ -1070,7 +1070,7 @@ sub end_command_with_alignment{
     #                 %* \end{tabular}
     #                     }
 
-    if( $_ =~ m/^\s*%\*\s*\\end\{(.*?)}/ and $lookForAlignDelims{$1})
+    if( $_ =~ m/^\s*%\*\s*\\end\{(.*?)\}/ and $lookForAlignDelims{$1})
     {
         # same subroutine used at the end of regular tabular, align, etc
         # environments
@@ -1196,7 +1196,7 @@ sub at_end_noindent{
     #          This is for blocks of code that the user wants
     #          to leave untouched- similar to verbatim blocks
 
-    if( $_ =~ m/^%\s*\\end\{(.*?)}/ and $noIndentBlock{$1})
+    if( $_ =~ m/^%\s*\\end\{(.*?)\}/ and $noIndentBlock{$1})
     {
             $inIndentBlock=0;
             # tracing mode
@@ -1217,7 +1217,7 @@ sub at_beg_noindent{
     #          This is for blocks of code that the user wants
     #          to leave untouched- similar to verbatim blocks
 
-    if( $_ =~ m/^%\s*\\begin\{(.*?)}/ and $noIndentBlock{$1})
+    if( $_ =~ m/^%\s*\\begin\{(.*?)\}/ and $noIndentBlock{$1})
     {
            $inIndentBlock = 1;
            # tracing mode
@@ -1618,7 +1618,7 @@ sub at_beg_of_env_or_eq{
     #                     with a backslash, e.g \my@env@ which can happen
     #                     in a style or class file, for example
 
-    if( (   ( $_ =~ m/^\s*(\$)?\\begin\{\\?(.*?)}/ and $_ !~ m/\\end\{$2}/)
+    if( (   ( $_ =~ m/^\s*(\$)?\\begin\{\\?(.*?)\}/ and $_ !~ m/\\end\{$2\}/)
          or ($_=~ m/^\s*()(\\\[)/ and $_ !~ m/\\\]/) )
         and $_ !~ m/^\s*%/ )
     {
@@ -1679,7 +1679,7 @@ sub at_end_of_env_or_eq{
     #          had alignment delimiters; if so, we need to turn
     #          OFF the $delimiter switch
 
-    if( ($_ =~ m/^\s*\\end\{\\?(.*?)}/ or $_=~ m/^(\\\])/) and $_ !~ m/\s*^%/)
+    if( ($_ =~ m/^\s*\\end\{\\?(.*?)\}/ or $_=~ m/^(\\\])/) and $_ !~ m/\s*^%/)
     {
 
        # check if we're at the end of a verbatim-like environment
